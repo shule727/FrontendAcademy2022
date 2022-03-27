@@ -1,0 +1,65 @@
+h3 {
+	color: rgb(28, 28, 29);
+}
+
+.outline {
+	background: #79b5b5;
+	border: black;
+	border-width: 5px;
+	border-style: solid;
+	margin: 20px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.textbox {
+	width: 30%;
+	height: 50px;
+}
+
+input {
+	border-style: solid;
+	border-radius: 4px;
+	border-width: 1px;
+}
+
+.logo {
+	margin-top: 20px;
+	width: 150px;
+	height: 150px;
+	border: solid;
+	border-color: white;
+	border-radius: 150px;
+	border-width: 6px;
+ 	background: rgb(159,53,53);
+	background: linear-gradient(0deg, rgba(159,53,53,0.8869748583026961) 0%, rgba(253,45,47,1) 100%); 
+	position: relative
+
+}
+
+.logo::after {
+	content: "";
+	position: absolute;
+	border-top: 80px solid blue;
+	border-left: 80px solid transparent;
+	left: 40px;
+	top: 20px;
+}
+
+.logo::before {
+	content: "";
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	background: blue;
+	left: 40px;
+	top: 60px;
+}
+
+.submit-button {
+	margin-bottom: 10px;
+}
