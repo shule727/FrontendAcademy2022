@@ -1,0 +1,12 @@
+.container {
+	background: #79b5b5;
+	border: black;
+	border-width: 5px;
+	border-style: solid;
+	margin: 20px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
