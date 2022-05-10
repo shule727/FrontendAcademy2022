@@ -1,23 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Input() {
+	const [input, setInput] = useState({});
+	const [circles, setCircles] = useState({})
 
-    // your task here is to create an input form in which a user will input at least 4 fields: x, y, r and color
-    // https://www.w3schools.com/react/react_forms.asp
-    // be careful, first three are numbers and the third one is either a dropdown or a color picker
+	const handleSubmit = (event) => {
+		event.preventDefault()
+		setCircles({ ...input })
+	}
 
-    // return 3 elements:
-    // 1st: a button which will add another form on click, meaning a user can add more than one circle
-    // 2nd: forms with submit buttons
-    // 3rd: svg which will consist of circle elements whose data a user has submitted
-    return (
-        <div>
-            <button>Add another circle</button>
-            {/* your forms go here */}
-            <svg viewBox="0 0 600 600" style={{maxWidth: 'min(600px, 80vw)', maxHeight: 'min(600px, 80vh)'}}>
-                {/* circle elements with x, y coordinate center, r radius and color color */}
-                {/* if you want to be fancy, play with fills, outlines, whatever you find fitting */}
-            </svg>
-        </div>
-    )
+	const handleChange = (event, num) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setInput(values => ({ ...values, [num]: { ...values[num], [name]: value } }))
+	}
+
+	const addAnotherForm = () => {
+		const length = Object.keys(input).length
+		setInput(values => ({ ...values, [length]: { x: 0, y: 0, r: 0, color: 'blue' } }))
+	}
+
+	return (
+		<div>
+			<button onClick={addAnotherForm}>Add another form</button>
+			{Object.entries(input).map(
+				([formNum, inputData]) =>
+					<CircleForm key={formNum} handleSubmit={handleSubmit} handleChange={handleChange} value={inputData} num={formNum} />)}
+			<svg viewBox="0 0 600 600" style={{ maxWidth: 'min(600px, 80vw)', maxHeight: 'min(600px, 80vh)' }}>
+				{Object.entries(circles).map(
+					([circleNum, circleData]) =>
+						<Circle key={circleNum} circleData={circleData} />)}
+			</svg>
+		</div>
+	)
+}
+
+function Circle(props) {
+	const { x, y, r, color } = props.circleData
+	return (
+		<circle cx={x} cy={y} r={r} fill={color} stroke="black" strokeWidth="2" />
+	)
+}
+
+function CircleForm(props) {
+	const { handleSubmit, handleChange, value, num } = props
+	const { x, y, r, color } = value;
+
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<label>X:
+				<input
+					type="text"
+					name="x"
+					value={x}
+					onChange={e => handleChange(e, num)}
+				/>
+			</label>
+			<label>Y:
+				<input
+					type="text"
+					name="y"
+					value={y}
+					onChange={e => handleChange(e, num)}
+				/>
+			</label>
+			<label>R:
+				<input
+					type="text"
+					name="r"
+					value={r}
+					onChange={e => handleChange(e, num)}
+				/>
+			</label>
+			<label>Color:
+				<select name="color" value={color} onChange={e => handleChange(e, num)}>
+					<option value="blue">Blue</option>
+					<option value="red">Red</option>
+					<option value="yellow">Yellow</option>
+					<option value="green">Green</option>
+				</select>
+			</label>
+			<input type="submit" />
+		</form>
+	)
 }
